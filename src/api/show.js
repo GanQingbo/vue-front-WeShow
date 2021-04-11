@@ -7,5 +7,11 @@ export default {
       method: 'post',
       data: searchObj
     })
+  },
+  getShowRecommend(){
+    return request({
+      url: '/show/recommend/getShowRecommend',
+      method: 'get',
+    })
   }
 }

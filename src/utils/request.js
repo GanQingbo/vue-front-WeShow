@@ -1,7 +1,7 @@
 import axiox from 'axios'
 
 const service = axiox.create({
-  baseURL: 'http://localhost:81',//baseURL会在发送请求的时候拼接在url参数的前面
+  baseURL: 'http://localhost:9001',//baseURL会在发送请求的时候拼接在url参数的前面
   timeout: 5000
 })
 
