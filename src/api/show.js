@@ -13,5 +13,11 @@ export default {
       url: '/show/recommend/getShowRecommend',
       method: 'get',
     })
+  },
+  getHotShow(){
+    return request({
+      url: '/show/recommend/topHot',
+      method: 'get',
+    })
   }
 }
