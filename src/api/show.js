@@ -19,5 +19,12 @@ export default {
       url: '/show/recommend/topHot',
       method: 'get',
     })
+  },
+  getShowListByQuery(searchObj){
+    return request({
+      url:'/show/show/getAllShowByQuery',
+      method:'post',
+      data: searchObj
+    })
   }
 }

@@ -43,10 +43,10 @@
     </van-panel>
 
     <van-tabbar v-model="active">
-      <van-tabbar-item icon="home-o">精选</van-tabbar-item>
-      <van-tabbar-item icon="search">全部</van-tabbar-item>
-      <van-tabbar-item icon="friends-o">票夹</van-tabbar-item>
-      <van-tabbar-item icon="user-o">我的</van-tabbar-item>
+      <van-tabbar-item icon="hot-o" to="/">精选</van-tabbar-item>
+      <van-tabbar-item icon="search" to="/AllShows">全部</van-tabbar-item>
+      <van-tabbar-item icon="orders-o" to="/Ticket">票夹</van-tabbar-item>
+      <van-tabbar-item icon="user-o" to="/Person">我的</van-tabbar-item>
     </van-tabbar>
 
   </div>
@@ -71,6 +71,7 @@
         loading: false,
         finished: false,
         active:0,
+
       }
     },
     computed: {

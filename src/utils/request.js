@@ -1,4 +1,5 @@
 import axiox from 'axios'
+import cookie from 'js-cookie'
 
 const service = axiox.create({
   baseURL: 'http://localhost:9001',//baseURL会在发送请求的时候拼接在url参数的前面
@@ -7,10 +8,13 @@ const service = axiox.create({
 
 //请求拦截
 //所有的网络请求都会先走这个方法
-// 添加请求拦截器,所有的网络请求都会先走这个方法，我们可以在它里面为请求添加一些自定义的内容
+// 添加请求拦截器,所有的网络请求都会先走这个方法
 service.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   //统一在请求的header加上token
+  if(cookie.get('token')){
+    config.headers['token'] = cookie.get('token');
+  }
   //token && (config.headers.Authorization = token)
   //config.headers.token='12343'
   return config;
@@ -23,19 +27,16 @@ service.interceptors.request.use(function (config) {
 //此处可以根据服务器的返回状态码做响应的处理
 //404 404 500
 service.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  if (response.status === 200) {
     if (response.data.code === 511) {
       // 未授权调取授权接口
     } else if (response.data.code === 510) {
       // 未登录跳转登录页
+      this.$router.replace('/Login')
     } else {
       return Promise.resolve(response)
     }
-  } else {
-    return Promise.reject(response)
-  }
-  //return response;
+    return response;
+
 }, function (error) {
   // 对响应错误做点什么
   if (error.response.status) {
