@@ -36,7 +36,7 @@
         this.$router.replace('/Person')
       },
       onClickRight() { //修改个人信息
-        this.$router.replace('/Person')
+        this.$router.replace('/UpdateInfo')
       },
       getUserInfo() {
         var json = cookie.get("userInfo")

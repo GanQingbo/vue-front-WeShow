@@ -26,5 +26,11 @@ export default {
       method:'post',
       data: searchObj
     })
+  },
+  getShowInfoById(id){
+    return request({
+      url: '/show/show/getShowById/' + id ,
+      method: 'get',
+    })
   }
 }

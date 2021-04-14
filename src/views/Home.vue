@@ -30,7 +30,7 @@
           @load="onLoad"
       >
         <div class="list">
-          <div class="cartItem" v-for="(item,index) in hotList" :key="index">
+          <div class="cartItem" v-for="(item,index) in hotList" :key="index" @click="showInfo(item.id)">
             <div class="showimg">
               <van-image width="100" height="135" lazy-load :src="item.showPoster"/>
             </div>
@@ -123,7 +123,9 @@
           }
         }, 1000);
       },
-
+      showInfo(id){ //演出具体信息
+        this.$router.push({path: '/ShowInfo/'+id})
+      }
     }
   }
 </script>

@@ -9,6 +9,9 @@ import Login from "../views/Login"
 import ResetPassword from "../views/ResetPassword";
 import UserInfo from "../views/UserInfo";
 import UpdateInfo from "../views/UpdateInfo";
+import ShowInfo from "../views/ShowInfo";
+import TicketChoice from "../views/TicketChoice";
+import OrderConfirm from "../views/OrderConfirm";
 
 Vue.use(VueRouter)
 
@@ -52,6 +55,21 @@ const routes = [
   {
     path:'/UpdateInfo',
     component:UpdateInfo
+  },
+  {
+    path:'/ShowInfo/:id',
+    component:ShowInfo,
+    hidden:true
+  },
+  {
+    path:'/TicketChoice/:id',
+    component:TicketChoice,
+    hidden:true
+  },
+  {
+    path:'/OrderConfirm/:id',
+    component:OrderConfirm,
+    hidden:true
   }
 
 ]
