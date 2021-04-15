@@ -10,22 +10,20 @@
       <div>{{show.showCity}} | {{show.showPlace}}</div>
       <van-divider/>
       <div>日期：{{this.show.showTime}}</div>
+      <van-divider/>
+      票档
     </div>
-    <van-divider/>
-    票档
-    <van-radio-group v-model="this.order.seatType">
-      <div v-for="(item,index) in ticket" :key="index">
-        <van-radio :name="item.seatType">{{item.seatType}} ￥{{item.seatPrice}}</van-radio>
-      </div>
-    </van-radio-group>
+    <div v-for="(item,index) in ticket" :class="active==index ? 'activeClass' : ''" :key="index">
+      <div @click="change(index)">{{item.seatType}} ￥{{item.seatPrice}}</div>
+    </div>
 
     <van-divider/>
     <div>
       <div class="number">每人限购2张</div>
-      <van-stepper v-model="number" theme="round" button-size="22" disable-input max="2"/>
+      <van-stepper  v-model="number" theme="round" button-size="22" disable-input max="2"/>
     </div>
     <van-goods-action>
-      <div class="price-class">￥50</div>
+      <div class="price-class">￥ {{this.amount}}</div>
       <van-goods-action-button type="danger" text="确定"/>
     </van-goods-action>
   </div>
@@ -40,9 +38,18 @@
       return {
         ticket: [],
         show: {},
-        totalPrice: '',
+        price: 0,
         number: 1,
-        order:{},
+        order: {
+          seatType: '',
+        },
+        active: 0,
+      }
+    },
+    computed:{
+      amount: function () { //计算总价格
+        console.log("总金额："+this.price * this.number);
+        return this.price * this.number
       }
     },
     created() {
@@ -51,7 +58,6 @@
         const id = this.$route.params.id
         this.getShowInfo(id)
         this.getTicketInfo(id)
-        this.order.seatType=this.ticket[0].seatType
       }
     },
     methods: {
@@ -59,22 +65,40 @@
         showApi.getShowInfoById(id).then(response => {
           if (response.data.success) {
             this.show = response.data.data.show
-            console.log(response);
           }
         })
       },
       getTicketInfo(id) {
         ticketApi.getTicketByShowId(id).then(response => {
           if (response.data.success) {
-            this.ticket = response.data.data
+            this.ticket = response.data.data.ticket
+            this.order.seatType = this.ticket[0].seatType
+            this.price=this.ticket[0].seatPrice
             console.log(this.ticket);
           }
         })
       },
       onClickLeft(id) {
         this.$router.push({path: '/ShowInfo/' + id})
-      }
-    }
+      },
+      change(index) {
+        //把index值赋给active，点击改变样式
+        this.active = index;
+        this.price=this.ticket[index].seatPrice
+        this.order.ticketId=this.ticket[index].id
+        this.order.seatType=this.ticket[index].seatType
+        this.order.seatPrice=this.ticket[index].seatPrice
+        this.order.amount=this.amount
+      },
+      getSellTime(id){ //获取倒计时时间，毫秒
+        ticketApi.getSellTimeDistance(id).then(response=>{
+          if(response.data.success){
+            this.countdown=response.data.data.time
+          }
+        })
+      },
+
+    },
   }
 </script>
 
@@ -96,5 +120,12 @@
   .number {
     width: 200px;
     float: left;
+  }
+
+  .activeClass {
+    color: #ca151e;
+    border: 1px solid #ca151e;
+    margin-left: 35%;
+    margin-right: 35%;
   }
 </style>

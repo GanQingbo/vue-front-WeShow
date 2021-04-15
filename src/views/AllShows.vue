@@ -13,7 +13,7 @@
       <van-dropdown-item v-model="searchObj.showOrder" :options="option4" @change="closed"/>
     </van-dropdown-menu>
 
-    <div v-for="(show,index) in list" :key="index">
+    <div v-for="(show,index) in list" :key="index" @click="showInfo(show.id)">
       <van-card
           :price="show.seatPrice"
           :desc="show.showPerformer"
@@ -122,6 +122,9 @@
           }
         })
       },
+      showInfo(id){ //演出具体信息
+        this.$router.push({path: '/ShowInfo/'+id})
+      }
 
     }
   }
