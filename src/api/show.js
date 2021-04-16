@@ -32,5 +32,11 @@ export default {
       url: '/show/show/getShowById/' + id ,
       method: 'get',
     })
+  },
+  getShowByUserId(id){
+    return request({
+      url: '/show/show/getShowsByUser/' + id ,
+      method: 'get',
+    })
   }
 }
