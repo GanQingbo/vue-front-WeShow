@@ -31,7 +31,7 @@
     <van-divider />
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="评论" color="#ee0a24"/>
-      <van-goods-action-icon icon="like-o" text="已收藏" color="#ff5000"/>
+      <van-goods-action-icon icon="like-o" text="收藏" color="#ff5000"/>
       <van-goods-action-button
           type="danger"
           text="立即购买"
@@ -69,7 +69,8 @@
         })
       },
       onClickLeft() { //返回
-        this.$router.replace('/')
+        //this.$router.replace('/')
+        this.$router.go(-1)
       },
       goTicketChoice(id) { //跳转到选票
         this.$router.push({path: '/TicketChoice/'+id})

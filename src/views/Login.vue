@@ -10,9 +10,11 @@
     />
 
     <van-form @submit="login" class="login-form">
-      <van-field v-model="user.username" name="手机号码" label="用户名/手机号码" placeholder="手机号码" :rules="[{ required: true, message: '请填写用户名或手机号码' }]">
+      <van-field v-model="user.username" name="手机号码" label="用户名/手机号码" placeholder="手机号码"
+                 :rules="[{ required: true, message: '请填写用户名或手机号码' }]">
       </van-field>
-      <van-field v-model="user.password" type="password" name="密码"  label="密码" placeholder="密码" :rules="[{ required: true, message: '请填写密码' }]">
+      <van-field v-model="user.password" type="password" name="密码" label="密码" placeholder="密码"
+                 :rules="[{ required: true, message: '请填写密码' }]">
       </van-field>
       <div style="margin: 20px;">
         <van-button round block type="info" native-type="submit">
@@ -38,46 +40,48 @@
   import Toast from "vant/lib/toast"
 
   export default {
-    data(){
-      return{
-        active:3,
-        user:{
-          username:'',
-          password:'',
+    data() {
+      return {
+        active: 3,
+        user: {
+          username: '',
+          password: '',
         },
-        userInfo:{},
+        userInfo: {},
       }
     },
     created() {
     },
-    methods:{
-      login(){ //登录
-        if (this.isEmpty(this.user.username)) { Toast({message: '账号不能为空', className: 'message-tips'}); }
-        else if (this.isEmpty(this.user.password)) {Toast({message: '密码不能为空', className: 'message-tips'});
+    methods: {
+      login() { //登录
+        if (this.isEmpty(this.user.username)) {
+          Toast({message: '账号不能为空', className: 'message-tips'});
+        } else if (this.isEmpty(this.user.password)) {
+          Toast({message: '密码不能为空', className: 'message-tips'});
         } else {
-        authApi.login(this.user).then(response=>{
-          if(response.data.success===true){
-            Toast({message: '登录成功', className: 'message-tips'})
-            cookie.set('token',response.data.data.token,{domain:'localhost'}) //token存在cookie中
-            authApi.getUserInfo().then(response=>{ //根据toekn获取用户信息
-              this.userInfo=response.data.data.user
-              cookie.set('userInfo',this.userInfo,{domain:'localhost'})
-            })
-            this.$router.replace('/Person')
-          }else {
-            Toast({message: '登录失败', className: 'message-tips'})
-          }
-        })
+          authApi.login(this.user).then(response => {
+            if (response.data.success === true) {
+              Toast({message: '登录成功', className: 'message-tips'})
+              cookie.set('token', response.data.data.token, {domain: 'localhost'}) //token存在cookie中
+              authApi.getUserInfo().then(response => { //根据toekn获取用户信息
+                this.userInfo = response.data.data.user
+                cookie.set('userInfo', this.userInfo, {domain: 'localhost'})
+              })
+              this.$router.replace('/Person')
+            } else {
+              Toast({message: '登录失败', className: 'message-tips'})
+            }
+          })
         }
       },
-      onClickLeft(){ //返回
-        this.$router.replace('/Person')
+      onClickLeft() { //返回
+        this.$router.go(-1)
       },
-      onClickRight(){ //跳往注册
+      onClickRight() { //跳往注册
         this.$router.replace('/Register')
       },
-      isEmpty(str){
-        return str.replace(/\s*/g, "")==''?true:false
+      isEmpty(str) {
+        return str.replace(/\s*/g, "") == '' ? true : false
       },
     }
   }

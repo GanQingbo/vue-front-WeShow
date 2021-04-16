@@ -12,7 +12,13 @@ import UpdateInfo from "../views/UpdateInfo";
 import ShowInfo from "../views/ShowInfo";
 import TicketChoice from "../views/TicketChoice";
 import OrderConfirm from "../views/OrderConfirm";
+import Alipay from "../views/Alipay";
+import PaySuccess from "../views/PaySuccess";
 
+import cookie from "js-cookie"
+import { Toast } from 'vant';
+
+Vue.use(Toast);
 Vue.use(VueRouter)
 
 const routes = [
@@ -67,9 +73,19 @@ const routes = [
     hidden:true
   },
   {
-    path:'/OrderConfirm/:id',
+    path:'/OrderConfirm',
+    name:'OrderConfirm',
     component:OrderConfirm,
-    hidden:true
+  },
+  {
+    path:'/Alipay',
+    name:'Alipay',
+    component:Alipay,
+  },
+  {
+    path:'/PaySuccess',
+    name:'PaySuccess',
+    component:PaySuccess,
   }
 
 ]
@@ -77,5 +93,19 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to,from,next)=>{
+  const token=cookie.get("token")
+  if(to.path==="/OrderConfirm" || to.path==="/UserInfo" || to.path==="/Ticket"){
+    if(token==null || token==""){
+      Toast.fail('请先登录！');
+      next("/Login");
+    }else{
+      next();
+    }
+  }else {
+    next();
+  }
+});
 
 export default router

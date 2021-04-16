@@ -33,7 +33,7 @@
     },
     methods: {
       onClickLeft() { //返回
-        this.$router.replace('/Person')
+        this.$router.go(-1)
       },
       onClickRight() { //修改个人信息
         this.$router.replace('/UpdateInfo')
@@ -48,7 +48,7 @@
         cookie.set('token', "", {domain: 'localhost'})
         cookie.set('userInfo', "", {domain: 'localhost'})
         //刷新页面
-        window.location.href = "/Person"
+        this.$router.go(-1)
       }
     }
   }
