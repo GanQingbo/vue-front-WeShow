@@ -30,8 +30,14 @@
     <div class="show-intro">{{show.showIntro}}</div>
     <van-divider />
     <van-goods-action>
-      <van-goods-action-icon icon="chat-o" text="评论" color="#ee0a24"/>
-      <van-goods-action-icon icon="like-o" text="收藏" color="#ff5000"/>
+      <van-goods-action-icon icon="chat-o" text="评论" @click="getShowComment(show.id)" color="#ee0a24"/>
+      <div v-if="isLike==true">
+        <van-goods-action-icon icon="like" text="取消收藏" @click="userReduceLike" color="#ff5000"/>
+      </div>
+      <div v-else>
+        <van-goods-action-icon icon="like-o" text="收藏" @click="userAddLike" color="#ff5000"/>
+      </div>
+
       <van-goods-action-button
           type="danger"
           text="立即购买"
@@ -49,15 +55,17 @@
     data() {
       return {
         show: {},
+        userShow:{
+          showId:'',
+          userId:'',
+        },
+        userInfo:'',
+        isLike:false,
 
       }
     },
     created() {
-      if (this.$route.params && this.$route.params.id) {
-        //从路径取得id
-        const id = this.$route.params.id
-        this.getShowInfo(id)
-      }
+      this.getUserShow()
     },
     methods: {
       getShowInfo(id) {
@@ -74,6 +82,49 @@
       },
       goTicketChoice(id) { //跳转到选票
         this.$router.push({path: '/TicketChoice/'+id})
+      },
+      userIsLike(userShow){
+        showApi.userIsLike(userShow).then(response=>{
+          if(response.data.success){
+            this.isLike=response.data.data.isLike
+            console.log("获取收藏状态成功");
+          }
+        })
+      },
+      userAddLike(){
+        this.getUserShow()
+        console.log(this.userShow);
+        showApi.userAddLike(this.userShow).then(response=>{
+          if(response.data.success){
+            this.$router.go(0)
+          }
+        })
+      },
+      userReduceLike(){
+        this.getUserShow()
+        console.log(this.userShow);
+        showApi.userReduceLike(this.userShow).then(response=>{
+          if(response.data.success){
+            this.$router.go(0)
+          }
+        })
+      },
+      getUserShow(){
+        if (this.$route.params && this.$route.params.id) {
+          //从路径取得id
+          const id = this.$route.params.id
+          this.getShowInfo(id)
+          this.userShow.showId=id
+          const json = cookie.get("userInfo")
+          if (json) {
+            this.userInfo = JSON.parse(json)
+            this.userShow.userId=this.userInfo.id+''
+            this.userIsLike(this.userShow)
+          }
+        }
+      },
+      getShowComment(id){
+        this.$router.push({path: '/ShowComment/'+id})
       }
     }
   }

@@ -33,7 +33,7 @@
     },
     methods: {
       onClickLeft() { //返回
-        this.$router.go(-1)
+        this.$router.replace('/Person')
       },
       onClickRight() { //修改个人信息
         this.$router.replace('/UpdateInfo')

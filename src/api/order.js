@@ -27,5 +27,29 @@ export default {
       method:'post',
       data:lockVo
     })
+  },
+  getOrderByUser(id){
+    return request({
+      url:'/order/getOrderVoByUserId/'+id,
+      method:'get'
+    })
+  },
+  getOrderById(id){
+    return request({
+      url:'/order/getOrderVoByOrderId/'+id,
+      method:'get'
+    })
+  },
+  orderReturn(id){
+    return request({
+      url:'/order/createOrderReturn/'+id,
+      method:'get'
+    })
+  },
+  deleteOrder(id){
+    return request({
+      url:'/order/updateDeleteStatus/'+id,
+      method:'get'
+    })
   }
 }

@@ -76,6 +76,5 @@
     align-items: center;
     padding: 20px 10px;
     flex-direction: column;  /* 按照列column(垂直方向)排列*/
-
   }
 </style>

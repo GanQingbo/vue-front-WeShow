@@ -21,15 +21,19 @@
     <div class="me-container">
       <div class="me-item">
         <van-icon name="like-o"/>
-        <div class="me-text">我的收藏</div>
+        <div class="me-text" @click="getMyLike">我的收藏</div>
       </div>
       <div class="me-item">
         <van-icon name="shopping-cart-o"/>
-        <div class="me-text">我的订单</div>
+        <div class="me-text" @click="getMyOrder">我的订单</div>
       </div>
       <div class="me-item">
         <van-icon name="good-job-o"/>
-        <div class="me-text">我的评价</div>
+        <div class="me-text" @click="getMyComment" >我的评价</div>
+      </div>
+      <div class="me-item">
+        <van-icon name="good-job-o"/>
+        <div class="me-text" @click="getMyPeople" >我的观影人</div>
       </div>
     </div>
 
@@ -70,6 +74,18 @@
           this.userInfo = JSON.parse(json)
         }
       },
+      getMyOrder(){
+        this.$router.replace('/OrderByUser')
+      },
+      getMyLike(){
+        this.$router.replace('/UserLike')
+      },
+      getMyComment(){
+        this.$router.replace('/UserComment')
+      },
+      getMyPeople(){
+        this.$router.replace('/UserIdentity')
+      }
     }
   }
 </script>

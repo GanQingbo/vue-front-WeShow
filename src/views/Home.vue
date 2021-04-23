@@ -13,14 +13,14 @@
     </van-swipe>
     <br/>
     <van-grid>
-      <van-grid-item icon="video-o" text="演唱会"/>
-      <van-grid-item icon="video-o" text="话剧歌剧"/>
-      <van-grid-item icon="video-o" text="曲苑杂坛"/>
-      <van-grid-item icon="video-o" text="舞蹈芭蕾"/>
-      <van-grid-item icon="video-o" text="音乐会"/>
-      <van-grid-item icon="video-o" text="休闲展览"/>
-      <van-grid-item icon="video-o" text="体育比赛"/>
-      <van-grid-item icon="video-o" text="其它类型"/>
+      <van-grid-item icon="video-o" text="演唱会" @click="getShowType1"/>
+      <van-grid-item icon="video-o" text="话剧歌剧" @click="getShowType2"/>
+      <van-grid-item icon="video-o" text="曲苑杂坛" @click="getShowType3"/>
+      <van-grid-item icon="video-o" text="舞蹈芭蕾" @click="getShowType4"/>
+      <van-grid-item icon="video-o" text="音乐会" @click="getShowType5"/>
+      <van-grid-item icon="video-o" text="休闲展览" @click="getShowType6"/>
+      <van-grid-item icon="video-o" text="体育比赛" @click="getShowType7"/>
+      <van-grid-item icon="video-o" text="其它类型" @click="getShowType8"/>
     </van-grid>
     <van-panel title="热门演出推荐">
       <van-list
@@ -56,6 +56,7 @@
   import showApi from '@/api/show'
   import Vue from 'vue';
   import {Lazyload} from 'vant';
+  import cookie from 'js-cookie'
 
   Vue.use(Lazyload);
 
@@ -125,7 +126,47 @@
       },
       showInfo(id){ //演出具体信息
         this.$router.push({path: '/ShowInfo/'+id})
-      }
+      },
+      getShowType1(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "演唱会", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
+      getShowType2(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "话剧歌剧", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
+      getShowType3(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "曲苑杂坛", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
+      getShowType4(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "舞蹈芭蕾", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
+      getShowType5(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "音乐会", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
+      getShowType6(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "休闲展览", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
+      getShowType7(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "体育比赛", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
+      getShowType8(){
+        //放进cookie，然后跳转
+        cookie.set('showType', "其它类型", {domain: 'localhost'})
+        this.$router.push({path: '/AllShows/'})
+      },
     }
   }
 </script>

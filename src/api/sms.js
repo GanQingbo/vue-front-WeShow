@@ -7,5 +7,14 @@ export default {
       method: 'get',
     })
   },
-
+  uploadOss(file){
+    return request({
+      url: '/other/oss/uploadPoster',
+      method: 'post',
+      data:file,
+      headers:{
+        'content-type':'multipart/form-data',
+      }
+    })
+  }
 }

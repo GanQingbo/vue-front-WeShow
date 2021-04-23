@@ -14,6 +14,13 @@ import TicketChoice from "../views/TicketChoice";
 import OrderConfirm from "../views/OrderConfirm";
 import Alipay from "../views/Alipay";
 import PaySuccess from "../views/PaySuccess";
+import OrderByUser from "../views/OrderByUser"
+import OrderInfo from "../views/OrderInfo"
+import UserLike from "../views/UserLike"
+import ShowComment  from "../views/ShowComment";
+import UserComment from "../views/UserComment";
+import UserIdentity from "../views/UserIdentity"
+import UserIdentityAdd from "../views/UserIdentityAdd"
 
 import cookie from "js-cookie"
 import { Toast } from 'vant';
@@ -86,8 +93,44 @@ const routes = [
     path:'/PaySuccess',
     name:'PaySuccess',
     component:PaySuccess,
-  }
-
+  },
+  {
+    path:'/OrderByUser',
+    name:'OrderByUser',
+    component:OrderByUser,
+  },
+  {
+    path:'/OrderInfo/:id',
+    name:'OrderInfo',
+    component:OrderInfo,
+    hidden:true
+  },
+  {
+    path:'/ShowComment/:id',
+    name:'ShowComment',
+    component:ShowComment,
+    hidden:true
+  },
+  {
+    path:'/UserLike',
+    name:'UserLike',
+    component:UserLike,
+  },
+  {
+    path:'/UserComment',
+    name:'UserComment',
+    component:UserComment,
+  },
+  {
+    path:'/UserIdentity',
+    name:'UserIdentity',
+    component:UserIdentity,
+  },
+  {
+    path:'/IdentityAdd',
+    name:'UserIdentityAdd',
+    component:UserIdentityAdd,
+  },
 ]
 
 const router = new VueRouter({
@@ -96,7 +139,7 @@ const router = new VueRouter({
 
 router.beforeEach((to,from,next)=>{
   const token=cookie.get("token")
-  if(to.path==="/OrderConfirm" || to.path==="/UserInfo" || to.path==="/Ticket"){
+  if(to.path==="/OrderConfirm" || to.path==="/UserInfo" || to.path==="/Ticket"|| to.path==="/UserLike"|| to.path==="/OrderByUser"|| to.path==="/UserComment"){
     if(token==null || token==""){
       Toast.fail('请先登录！');
       next("/Login");
