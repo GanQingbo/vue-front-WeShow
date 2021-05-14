@@ -139,10 +139,10 @@ const router = new VueRouter({
 
 router.beforeEach((to,from,next)=>{
   const token=cookie.get("token")
-  if(to.path==="/OrderConfirm" || to.path==="/UserInfo" || to.path==="/Ticket"|| to.path==="/UserLike"|| to.path==="/OrderByUser"|| to.path==="/UserComment"){
+  if(to.path==="/UserIdentity" ||to.path==="/ShowComment" ||to.path==="/OrderConfirm" || to.path==="/UserInfo" || to.path==="/Ticket"|| to.path==="/UserLike"|| to.path==="/OrderByUser"|| to.path==="/UserComment"){
     if(token==null || token==""){
       Toast.fail('请先登录！');
-      next("/Login");
+      //next("/Login");
     }else{
       next();
     }

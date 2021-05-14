@@ -140,7 +140,6 @@
                 if (response.data.success) { //锁定库存成功，开始支付
                   //锁库存，加到map中
                   this.addTicketSell()
-
                   this.toPay = response.data.data.response.order
                   this.lockVo.id = response.data.data.response.order.ticketId
                   this.lockVo.orderId = response.data.data.response.order.id

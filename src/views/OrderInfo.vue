@@ -67,6 +67,9 @@
             }else if(this.order.orderStatus==3){
               this.order.status='已退票'
               this.isRefund=true
+            } else if(this.order.orderStatus==4){
+              this.order.status='已关闭'
+              this.isRefund=true
             }
           }
         })

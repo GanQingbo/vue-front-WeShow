@@ -102,6 +102,7 @@
         //加载排行榜数据
         showApi.getHotShow().then(response => {
           if (response.data.success === true) {
+
             this.showList = response.data.data.show
           } else {
             console.log("数据加载失败");
